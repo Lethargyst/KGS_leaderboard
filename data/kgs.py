@@ -51,4 +51,3 @@ class KGS:
         for m in json["messages"]:
             if m["type"] == type:
                 return m
-
