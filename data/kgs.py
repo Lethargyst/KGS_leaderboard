@@ -18,7 +18,10 @@ class KGS:
                 "locale": loc}
         self.cookie = requests.post(API_URL, json=data).cookies
 
-        return requests.get(API_URL, cookies=self.cookie).json()
+        response = requests.get(API_URL, cookies=self.cookie).json()
+        if response['messages'][1]['type'] == 'LOGIN_FAILED_BAD_PASSWORD':
+            raise ValueError
+        return response
 
     def req(self, data):
         requests.post(API_URL, json=data, cookies=self.cookie)
