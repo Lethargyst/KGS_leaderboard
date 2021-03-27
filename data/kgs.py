@@ -1,4 +1,4 @@
-import requests
+import requestsa
 from bs4 import BeautifulSoup
 
 API_URL = "https://www.gokgs.com/json/access"
