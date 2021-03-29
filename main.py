@@ -1,4 +1,4 @@
-from flask import Flask, render_templatea
+from flask import Flask, render_template
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
@@ -17,8 +17,8 @@ app.config['SECRET_KEY'] = 'pythonidory'
 api = KGS("login", "password", "ru_RU")
 
 
-@app.route('/')
-@app.route('/authorization')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/authorization', methods=['GET', 'POST'])
 def authorization():
     form = AuthorizationForm()
     if form.validate_on_submit():
