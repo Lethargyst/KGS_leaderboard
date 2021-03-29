@@ -40,19 +40,19 @@
             $.post('/info', {
                 user_name: user
             }).done(function(response) {
-                $(_1_game_user_color).text(response['info']);
-                $(_1_game_user_score).text(response['info']);
-                $(_1_game_user_duration).text(response['info']);
-                $(_1_game_user_enemy_name).text(response['info']);
-                $(_1_game_user_enemy_color).text(response['info']);
-                $(_1_game_user_enemy_score).text(response['info']);
+                $(_1_game_user_color).text(response['1_game_user_color']);
+                $(_1_game_user_score).text(response['1_game_user_score']);
+                $(_1_game_user_duration).text(response['1_game_user_duration']);
+                $(_1_game_user_enemy_name).text(response['1_game_user_enemy_name']);
+                $(_1_game_user_enemy_color).text(response['1_game_user_enemy_color']);
+                $(_1_game_user_enemy_score).text(response['1_game_user_enemy_score']);
 
-                $(_2_game_user_color).text(response['info']);
-                $(_2_game_user_score).text(response['info']);
-                $(_2_game_user_duration).text(response['info']);
-                $(_2_game_user_enemy_name).text(response['info']);
-                $(_2_game_user_enemy_color).text(response['info']);
-                $(_2_game_user_enemy_score).text(response['info']);
+                $(_2_game_user_color).text(response['2_game_user_color']);
+                $(_2_game_user_score).text(response['2_game_user_score']);
+                $(_2_game_user_duration).text(response['2_game_user_duration']);
+                $(_2_game_user_enemy_name).text(response['2_game_user_enemy_name']);
+                $(_2_game_user_enemy_color).text(response['2_game_user_enemy_color']);
+                $(_2_game_user_enemy_score).text(response['2_game_user_enemy_score']);
 
             });
         }

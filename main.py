@@ -15,8 +15,21 @@ def index():
 def get_user_info():
     user = request.form['user_name']
     print(user)
-    return jsonify({'info': f'чета поменялос'})
-
+    return jsonify({
+        '1_game_user_color': 'цвет игрока в 1 игре',
+        '1_game_user_score': 'счет игрока в 1 игре',
+        '1_game_user_duration': 'длительность 1 игры',
+        '1_game_user_enemy_name': 'имя соперника в 1 игре',
+        '1_game_user_enemy_color': 'цвет соперника в 1 игре',
+        '1_game_user_enemy_score': 'счет соперника в 1 игре',
+        '2_game_user_color': 'цвет игрока в 2 игре',
+        '2_game_user_score': 'счет игрока в 2 игре',
+        '2_game_user_duration': 'длительность 2 игры',
+        '2_game_user_enemy_name': 'имя соперника в 2 игре',
+        '2_game_user_enemy_color': 'цвет соперника в 2 игре',
+        '2_game_user_enemy_score': 'счет соперника в 2 игре'
+    }
+    )
 
 if __name__ == '__main__':
     app.run(port=80, host='127.0.0.1')
