@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, render_template, request, jsonify
 from data.kgs import KGS
 
@@ -14,22 +16,26 @@ def index():
 @app.route('/info', methods=['POST'])
 def get_user_info():
     user = request.form['user_name']
-    print(user)
+    arh_join = KGS.get_typed(api.join_archive_request(user)["messages"], "ARCHIVE_JOIN")
+
+    lobby1 = KGS.get_typed(api.room_load_game(arh_join["games"][-1]["timestamp"], 22)["messages"], "GAME_JOIN")
+    lobby2 = KGS.get_typed(api.room_load_game(arh_join["games"][-2]["timestamp"], 22)["messages"], "GAME_JOIN")
+
+
     return jsonify({
-        '1_game_user_color': 'цвет игрока в 1 игре',
-        '1_game_user_score': 'счет игрока в 1 игре',
-        '1_game_user_duration': 'длительность 1 игры',
-        '1_game_user_enemy_name': 'имя соперника в 1 игре',
-        '1_game_user_enemy_color': 'цвет соперника в 1 игре',
-        '1_game_user_enemy_score': 'счет соперника в 1 игре',
-        '2_game_user_color': 'цвет игрока в 2 игре',
-        '2_game_user_score': 'счет игрока в 2 игре',
-        '2_game_user_duration': 'длительность 2 игры',
-        '2_game_user_enemy_name': 'имя соперника в 2 игре',
-        '2_game_user_enemy_color': 'цвет соперника в 2 игре',
-        '2_game_user_enemy_score': 'счет соперника в 2 игре'
+        '1_game_user_color': KGS.get_colors(arh_join, -1)[0],
+        '1_game_user_score': KGS.get_score(arh_join, -1),
+        '1_game_user_duration': KGS.get_duration(lobby1),
+        '1_game_user_enemy_name': KGS.get_players(arh_join, -1)[1],
+        '1_game_user_enemy_color': KGS.get_colors(arh_join, -1)[1],
+        '1_game_user_enemy_score': KGS.get_score(arh_join, -1),
+        '2_game_user_color': KGS.get_colors(arh_join, -2)[0],
+        '2_game_user_score': KGS.get_score(arh_join, -2),
+        '2_game_user_duration': KGS.get_duration(lobby2),
+        '2_game_user_enemy_name': KGS.get_players(arh_join, -2)[1],
+        '2_game_user_enemy_color': KGS.get_colors(arh_join, -2)[1],
+        '2_game_user_enemy_score': KGS.get_score(arh_join, -2)
     }
     )
-
 if __name__ == '__main__':
     app.run(port=80, host='127.0.0.1')

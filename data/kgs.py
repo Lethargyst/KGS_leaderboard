@@ -33,21 +33,11 @@ class KGS:
                 "name": name}
         return self.req(data)
 
-    def details_join_request(self, name):
-        data = {"type": "DETAILS_JOIN_REQUEST",
-                "name": name}
-        return self.req(data)
-
     def room_load_game(self, timestamp, channelId):
         data = {"type": "ROOM_LOAD_GAME",
                 "timestamp": timestamp,
                 "channelId": channelId}
         return self.req(data)
-
-    def get_users_games(self, user):
-        self.details_join_request(user)
-        # to be continued...
-        return
 
     def parse_top_100(self):
         page = requests.get(TOP100_URL).content
@@ -55,7 +45,53 @@ class KGS:
         return [u.contents[0] for u in soup.find_all("a")[:-1]]
 
     @staticmethod
-    def get_typed(json, type):
-        for m in json["messages"]:
-            if m["type"] == type:
+    def get_typed(json, type, trigger="type"):
+        for m in json:
+            if m[trigger] == type:
                 return m
+
+    @staticmethod
+    def get_players(msg, game_id):
+        res = []
+        game = msg["games"][game_id]
+        players = game["players"]
+        for p in players:
+            if p == "owner":
+                continue
+            res.append(players[p]["name"])
+        return res
+
+    @staticmethod
+    def get_colors(msg, game_id):
+        res = []
+        game = msg["games"][game_id]
+        players = game["players"]
+        for p in players:
+            if p == "owner":
+                continue
+            res.append(p)
+        return res
+
+    @staticmethod
+    def get_score(msg, game_id):
+        game = msg["games"][game_id]
+        return game["score"]
+
+    @staticmethod
+    def get_duration(lobby):
+        sgf = lobby["sgfEvents"]
+        game_time = sgf[0]["props"][0]["mainTime"]
+
+        last = KGS.get_typed(sgf[::-1], "PROP_GROUP_ADDED")
+        sgf.remove(last)
+        penult = KGS.get_typed(sgf[::-1], "PROP_GROUP_ADDED")
+
+        last_prop = KGS.get_typed(last["props"], "TIMELEFT", trigger="name")
+        penult_prop = KGS.get_typed(penult["props"], "TIMELEFT", trigger="name")
+
+        last_time = last_prop["float"] if last_prop["int"] == 0 else 0
+        penult_time = penult_prop["float"] if penult_prop["int"] == 0 else 0
+
+        return (game_time - last_time) + (game_time - penult_time)
+
+
