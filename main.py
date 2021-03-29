@@ -14,7 +14,8 @@ def index():
 @app.route('/info', methods=['POST'])
 def get_user_info():
     user = request.form['user_name']
-    return jsonify({'info': api.get_users_games(user)})
+    print(user)
+    return jsonify({'info': f'чета поменялос'})
 
 
 if __name__ == '__main__':

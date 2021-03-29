@@ -12,10 +12,25 @@
                     <div class="panel-heading" role="tab" id="heading-{{ loop.index }}">
                         <h4 class="panel-title">
                             <span id="user_{{ loop.index }}">
-                            <a name="user_btn" role="button" data-toggle="collapse"
+                            <a id="btn_{{ user }}" role="button" data-toggle="collapse"
                                data-parent="#accordion" href="#collapse-{{ loop.index }}"
                                aria-expanded="true" aria-controls="collapse-{{ loop.index }}"
-                               onclick='get_user_info("{{ user }}")'>
+                               onclick="get_user_info(
+                                '{{ user }}',
+                                '#1_game_{{ user }}_color',
+                                '#1_game_{{ user }}_score',
+                                '#1_game_{{ user }}_duration',
+                                '#1_game_{{ user }}_enemy_name',
+                                '#1_game_{{ user }}_enemy_color',
+                                '#1_game_{{ user }}_enemy_score',
+
+                                '#2_game_{{ user }}_color',
+                                '#2_game_{{ user }}_score',
+                                '#2_game_{{ user }}_duration',
+                                '#2_game_{{ user }}_enemy_name',
+                                '#2_game_{{ user }}_enemy_color',
+                                '#2_game_{{ user }}_enemy_score'
+                                )">
                                 #{{ loop.index}} {{ user }}
                             </a>
                             </span>
@@ -40,14 +55,16 @@
                                 <tr onclick="window.location.href='/somePage'; return false">
                                     <th scope="row" rowspan="2" class="firstly">1</th>
                                     <td>{{ user }}</td>
-                                    <td>ы</td>
-                                    <td>@ы</td>
-                                    <td rowspan="2" class="firstly">duration</td>
+                                    <td id="1_game_{{ user }}_color">ы</td>
+                                    <td id="1_game_{{ user }}_score">@ы</td>
+                                    <td id="1_game_{{ user }}_duration" rowspan="2" class="firstly">
+                                        duration
+                                    </td>
                                 </tr>
                                 <tr onclick="window.location.href='/somePage'; return false">
-                                    <td>enemy</td>
-                                    <td>ы</td>
-                                    <td>ы</td>
+                                    <td id="1_game_{{ user }}_enemy_name">enemy</td>
+                                    <td id="1_game_{{ user }}_enemy_color">ы</td>
+                                    <td id="1_game_{{ user }}_enemy_score">ы</td>
                                 </tr>
                                 </tbody>
 
@@ -55,14 +72,16 @@
                                 <tr onclick="window.location.href='/somePage'; return false">
                                     <th scope="row" rowspan="2" class="firstly">2</th>
                                     <td>{{ user }}</td>
-                                    <td>ы</td>
-                                    <td>@ы</td>
-                                    <td rowspan="2" class="firstly">duration</td>
+                                    <td id="2_game_{{ user }}_color">ы</td>
+                                    <td id="2_game_{{ user }}_score">@ы</td>
+                                    <td id="2_game_{{ user }}_duration" rowspan="2" class="firstly">
+                                        duration
+                                    </td>
                                 </tr>
                                 <tr onclick="window.location.href='/somePage'; return false">
-                                    <td>enemy</td>
-                                    <td>ы</td>
-                                    <td>ы</td>
+                                    <td id="2_game_{{ user }}_enemy_name">enemy</td>
+                                    <td id="2_game_{{ user }}_enemy_color">ы</td>
+                                    <td id="2_game_{{ user }}_enemy_score">ы</td>
                                 </tr>
                                 </tbody>
 
