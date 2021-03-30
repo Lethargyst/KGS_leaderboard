@@ -1,52 +1,102 @@
 {% extends "base.html" %}
 a
 {% block content %}
-{% for user in users %}
 
-<div id="accordion" role="tablist" aria-multiselectable="true" data-toggle="collapse"
-     data-parent="#accordion" href="#collapse-{{ loop.index }}" aria-expanded="true"
-     aria-controls="collapse-{{ loop.index }}">
-    <div class="card text-center" style="">
-        <div class="card-header" role="tab" id="headingOne">
-            <h5 class="mb-0">
-                #{{ loop.index }} {{ user }}
-            </h5>
-        </div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                {% for user in users %}
 
-        <div id="collapse-{{ loop.index }}" class="collapse" role="tabpanel"
-             aria-labelledby="headingOne">
-            <table class="table table-bordered">
-                <thead class="thead-dark">
-                <tr>
-                    <th class="text-center" scope="col">#</th>
-                    <th class="text-center" scope="col">Nickname</th>
-                    <th class="text-center" scope="col">Color</th>
-                    <th class="text-center" scope="col">Score</th>
-                    <th class="text-center" scope="col">Duration</th>
-                </tr>
-                </thead>
-                {% for j in range(1, 3) %}
-                <tbody>
-                <tr onclick="window.location.href='/somePage'; return false">
-                    <th scope="row" rowspan="2" class="firstly">{{ j }}</th>
-                    <td>{{ user }}</td>
-                    <td>ы</td>
-                    <td>@ы</td>
-                    <td rowspan="2" class="firstly">duration</td>
-                </tr>
-                <tr onclick="window.location.href='/somePage'; return false">
-                    <td>enemy</td>
-                    <td>ы</td>
-                    <td>ы</td>
-                </tr>
-                </tbody>
+                <div class="panel panel-default" onclick="">
+                    <div class="panel-heading" role="tab" id="heading-{{ loop.index }}">
+                        <h4 class="panel-title">
+                            <span id="user_{{ loop.index }}">
+                            <a id="btn_{{ user }}" role="button" data-toggle="collapse"
+                               data-parent="#accordion" href="#collapse-{{ loop.index }}"
+                               aria-expanded="true" aria-controls="collapse-{{ loop.index }}"
+                               onclick="get_user_info(
+                                '{{ user }}',
+                                '#1_game_{{ user }}_color',
+                                '#1_game_{{ user }}_score',
+                                '#1_game_{{ user }}_duration',
+                                '#1_game_{{ user }}_enemy_name',
+                                '#1_game_{{ user }}_enemy_color',
+                                '#1_game_{{ user }}_enemy_score',
+
+                                '#2_game_{{ user }}_color',
+                                '#2_game_{{ user }}_score',
+                                '#2_game_{{ user }}_duration',
+                                '#2_game_{{ user }}_enemy_name',
+                                '#2_game_{{ user }}_enemy_color',
+                                '#2_game_{{ user }}_enemy_score'
+                                )">
+                                #{{ loop.index}} {{ user }}
+                            </a>
+                            </span>
+                        </h4>
+                    </div>
+                    <div id="collapse-{{ loop.index }}" class="panel-collapse collapse in"
+                         role="tabpanel"
+                         aria-labelledby="heading-{{ loop.index }}">
+                        <div class="panel-body">
+                            <table class="table table-bordered">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th class="text-center" scope="col">#</th>
+                                    <th class="text-center" scope="col">Nickname</th>
+                                    <th class="text-center" scope="col">Color</th>
+                                    <th class="text-center" scope="col">Score</th>
+                                    <th class="text-center" scope="col">Duration</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr onclick="window.location.href='/somePage'; return false">
+                                    <th scope="row" rowspan="2" class="firstly">1</th>
+                                    <td>{{ user }}</td>
+                                    <td id="1_game_{{ user }}_color">ы</td>
+                                    <td id="1_game_{{ user }}_score">@ы</td>
+                                    <td id="1_game_{{ user }}_duration" rowspan="2" class="firstly">
+                                        duration
+                                    </td>
+                                </tr>
+                                <tr onclick="window.location.href='/somePage'; return false">
+                                    <td id="1_game_{{ user }}_enemy_name">enemy</td>
+                                    <td id="1_game_{{ user }}_enemy_color">ы</td>
+                                    <td id="1_game_{{ user }}_enemy_score">ы</td>
+                                </tr>
+                                </tbody>
+
+                                <tbody>
+                                <tr onclick="window.location.href='/somePage'; return false">
+                                    <th scope="row" rowspan="2" class="firstly">2</th>
+                                    <td>{{ user }}</td>
+                                    <td id="2_game_{{ user }}_color">ы</td>
+                                    <td id="2_game_{{ user }}_score">@ы</td>
+                                    <td id="2_game_{{ user }}_duration" rowspan="2" class="firstly">
+                                        duration
+                                    </td>
+                                </tr>
+                                <tr onclick="window.location.href='/somePage'; return false">
+                                    <td id="2_game_{{ user }}_enemy_name">enemy</td>
+                                    <td id="2_game_{{ user }}_enemy_color">ы</td>
+                                    <td id="2_game_{{ user }}_enemy_score">ы</td>
+                                </tr>
+                                </tbody>
+
+
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
                 {% endfor %}
 
-            </table>
+            </div>
         </div>
     </div>
 </div>
 
 
-{% endfor %}
 {% endblock %}
