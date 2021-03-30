@@ -54,7 +54,8 @@
                 $(_2_game_user_enemy_color).text(response['2_game_user_enemy_color']);
                 $(_2_game_user_enemy_score).text(response['2_game_user_enemy_score']);
 
-            });
+            }).fail(function() {
+                $(user).text('Error')});
         }
 
 
