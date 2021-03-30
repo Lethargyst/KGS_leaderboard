@@ -12,7 +12,7 @@ a
                     <div class="panel-heading" role="tab" id="heading-{{ loop.index }}">
                         <h4 class="panel-title">
                             <span id="user_{{ loop.index }}">
-                            <a id="btn_{{ user }}" role="button" data-toggle="collapse"
+                            <a id="{{ user }}" role="button" data-toggle="collapse"
                                data-parent="#accordion" href="#collapse-{{ loop.index }}"
                                aria-expanded="true" aria-controls="collapse-{{ loop.index }}"
                                onclick="get_user_info(
@@ -55,16 +55,15 @@ a
                                 <tr onclick="window.location.href='/somePage'; return false">
                                     <th scope="row" rowspan="2" class="firstly">1</th>
                                     <td>{{ user }}</td>
-                                    <td id="1_game_{{ user }}_color">ы</td>
-                                    <td id="1_game_{{ user }}_score">@ы</td>
+                                    <td id="1_game_{{ user }}_color"></td>
+                                    <td id="1_game_{{ user }}_score" rowspan="2"
+                                        class="firstly"></td>
                                     <td id="1_game_{{ user }}_duration" rowspan="2" class="firstly">
-                                        duration
                                     </td>
                                 </tr>
                                 <tr onclick="window.location.href='/somePage'; return false">
-                                    <td id="1_game_{{ user }}_enemy_name">enemy</td>
-                                    <td id="1_game_{{ user }}_enemy_color">ы</td>
-                                    <td id="1_game_{{ user }}_enemy_score">ы</td>
+                                    <td id="1_game_{{ user }}_enemy_name"></td>
+                                    <td id="1_game_{{ user }}_enemy_color"></td>
                                 </tr>
                                 </tbody>
 
@@ -72,16 +71,16 @@ a
                                 <tr onclick="window.location.href='/somePage'; return false">
                                     <th scope="row" rowspan="2" class="firstly">2</th>
                                     <td>{{ user }}</td>
-                                    <td id="2_game_{{ user }}_color">ы</td>
-                                    <td id="2_game_{{ user }}_score">@ы</td>
+                                    <td id="2_game_{{ user }}_color"></td>
+                                    <td id="2_game_{{ user }}_score" rowspan="2" class="firstly">
+                                    </td>
                                     <td id="2_game_{{ user }}_duration" rowspan="2" class="firstly">
-                                        duration
+
                                     </td>
                                 </tr>
                                 <tr onclick="window.location.href='/somePage'; return false">
-                                    <td id="2_game_{{ user }}_enemy_name">enemy</td>
-                                    <td id="2_game_{{ user }}_enemy_color">ы</td>
-                                    <td id="2_game_{{ user }}_enemy_score">ы</td>
+                                    <td id="2_game_{{ user }}_enemy_name"></td>
+                                    <td id="2_game_{{ user }}_enemy_color"></td>
                                 </tr>
                                 </tbody>
 

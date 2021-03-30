@@ -1,0 +1,46 @@
+tbody:hover {
+        background: #B4AEAE;
+        color: #323030;
+       }
+
+.firstly {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+a {
+  text-align: center;
+}
+
+a:hover,a:focus{
+ text-decoration: none;
+ outline: none;
+}
+
+#accordion .panel{
+ border: none;
+ box-shadow: none;
+ border-radius: 0;
+ margin-bottom: 5px;
+}
+
+#accordion .panel-heading{
+ padding: 0;
+ border-radius: 0;
+ text-align: center;
+ border: none;
+}
+
+#accordion .panel-title a{
+ display: block;
+ padding: 15px;
+ font-size: 16px;
+ font-weight: bold;
+ color: #fff;
+ background: #0C0119;
+ transition: all 0.5s ease 0s;
+}
+
+#accordion .panel-title a:hover{
+ background: rgba(12, 1, 25, 0.8);
+}
