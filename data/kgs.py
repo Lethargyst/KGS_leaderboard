@@ -1,4 +1,4 @@
-import requestsa
+import requests
 from bs4 import BeautifulSoup
 
 API_URL = "https://www.gokgs.com/json/access"
@@ -93,5 +93,3 @@ class KGS:
         penult_time = penult_prop["float"] if penult_prop["int"] == 0 else 0
 
         return (game_time - last_time) + (game_time - penult_time)
-
-
