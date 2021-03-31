@@ -95,3 +95,6 @@ class KGS:
         return (game_time - last_time) + (game_time - penult_time)
 
 
+
+
+

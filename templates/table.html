@@ -15,22 +15,7 @@
                             <a id="{{ user }}" role="button" data-toggle="collapse"
                                data-parent="#accordion" href="#collapse-{{ loop.index }}"
                                aria-expanded="true" aria-controls="collapse-{{ loop.index }}"
-                               onclick="get_user_info(
-                                '{{ user }}',
-                                '#1_game_{{ user }}_color',
-                                '#1_game_{{ user }}_score',
-                                '#1_game_{{ user }}_duration',
-                                '#1_game_{{ user }}_enemy_name',
-                                '#1_game_{{ user }}_enemy_color',
-                                '#1_game_{{ user }}_enemy_score',
-
-                                '#2_game_{{ user }}_color',
-                                '#2_game_{{ user }}_score',
-                                '#2_game_{{ user }}_duration',
-                                '#2_game_{{ user }}_enemy_name',
-                                '#2_game_{{ user }}_enemy_color',
-                                '#2_game_{{ user }}_enemy_score'
-                                )">
+                               onclick="get_user_info('{{ user }}', 'table_{{ user }}')">
                                 #{{ loop.index}} {{ user }}
                             </a>
                             </span>
@@ -40,7 +25,7 @@
                          role="tabpanel"
                          aria-labelledby="heading-{{ loop.index }}">
                         <div class="panel-body">
-                            <table class="table table-bordered">
+                            <table id="table_{{ user }}" class="table table-bordered">
                                 <thead class="thead-dark">
                                 <tr>
                                     <th class="text-center" scope="col">#</th>
@@ -52,38 +37,8 @@
                                 </thead>
 
                                 <tbody>
-                                <tr onclick="window.location.href='/somePage'; return false">
-                                    <th scope="row" rowspan="2" class="firstly">1</th>
-                                    <td>{{ user }}</td>
-                                    <td id="1_game_{{ user }}_color"></td>
-                                    <td id="1_game_{{ user }}_score" rowspan="2"
-                                        class="firstly"></td>
-                                    <td id="1_game_{{ user }}_duration" rowspan="2" class="firstly">
-                                    </td>
-                                </tr>
-                                <tr onclick="window.location.href='/somePage'; return false">
-                                    <td id="1_game_{{ user }}_enemy_name"></td>
-                                    <td id="1_game_{{ user }}_enemy_color"></td>
-                                </tr>
+
                                 </tbody>
-
-                                <tbody>
-                                <tr onclick="window.location.href='/somePage'; return false">
-                                    <th scope="row" rowspan="2" class="firstly">2</th>
-                                    <td>{{ user }}</td>
-                                    <td id="2_game_{{ user }}_color"></td>
-                                    <td id="2_game_{{ user }}_score" rowspan="2" class="firstly">
-                                    </td>
-                                    <td id="2_game_{{ user }}_duration" rowspan="2" class="firstly">
-
-                                    </td>
-                                </tr>
-                                <tr onclick="window.location.href='/somePage'; return false">
-                                    <td id="2_game_{{ user }}_enemy_name"></td>
-                                    <td id="2_game_{{ user }}_enemy_color"></td>
-                                </tr>
-                                </tbody>
-
 
                             </table>
 

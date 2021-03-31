@@ -26,21 +26,28 @@ def get_user_info():
             api.room_load_game(arh_join["games"][-2]["timestamp"], 22)["messages"],
             "GAME_JOIN")
 
-        return jsonify({
-            '1_game_user_color': KGS.get_colors(arh_join, -1)[0],
-            '1_game_user_score': KGS.get_score(arh_join, -1),
-            '1_game_user_duration': KGS.get_duration(lobby1),
-            '1_game_user_enemy_name': KGS.get_players(arh_join, -1)[1],
-            '1_game_user_enemy_color': KGS.get_colors(arh_join, -1)[1],
-            '1_game_user_enemy_score': KGS.get_score(arh_join, -1),
-            '2_game_user_color': KGS.get_colors(arh_join, -2)[0],
-            '2_game_user_score': KGS.get_score(arh_join, -2),
-            '2_game_user_duration': KGS.get_duration(lobby2),
-            '2_game_user_enemy_name': KGS.get_players(arh_join, -2)[1],
-            '2_game_user_enemy_color': KGS.get_colors(arh_join, -2)[1],
-            '2_game_user_enemy_score': KGS.get_score(arh_join, -2)
-        }
-        )
+        players_1 = list(enumerate(KGS.get_players(arh_join, -1)))
+        game_1 = {'num': '1',
+                  'duration': KGS.get_duration(lobby1),
+                  'score': KGS.get_score(arh_join, -1),
+                  'users_amount': len(players_1),
+                  'users': [{'name': name,
+                             'color': KGS.get_colors(arh_join, -1)[i]}
+                            for i, name in players_1]
+                  }
+        players_2 = list(enumerate(KGS.get_players(arh_join, -2)))
+        game_2 = {'num': '2',
+                  'duration': KGS.get_duration(lobby2),
+                  'score': KGS.get_score(arh_join, -2),
+                  'users_amount': len(players_2),
+                  'users': [{'name': name,
+                             'color': KGS.get_colors(arh_join, -2)[i]}
+                            for i, name in players_2]
+                  }
+
+        games_json = jsonify({'games': [game_1, game_2]})
+        return games_json
+    return jsonify({'success': 'OK'})
 
 
 if __name__ == '__main__':
