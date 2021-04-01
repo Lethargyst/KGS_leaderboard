@@ -12,7 +12,8 @@ def draw(size):
             idraw.rectangle((padding + size_slot * col,
                              padding + size_slot * row,
                              padding + size_slot + size_slot * col,
-                             padding + size_slot + size_slot * row), outline='black', width=2)
+                             padding + size_slot + size_slot * row), outline='#a78a48', width=2)
 
     img.save('board.png')
 
+draw(9)
