@@ -8,22 +8,18 @@
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 {% for user in users %}
 
-                <div class="panel panel-default" onclick="">
-                    <div class="panel-heading" role="tab" id="heading-{{ loop.index }}">
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading-{{ user }}">
                         <h4 class="panel-title">
-                            <span id="user_{{ loop.index }}">
-                            <a id="{{ user }}" role="button" data-toggle="collapse"
-                               data-parent="#accordion" href="#collapse-{{ loop.index }}"
-                               aria-expanded="true" aria-controls="collapse-{{ loop.index }}"
-                               onclick="get_user_info('{{ user }}', 'table_{{ user }}')">
+                            <a class="button" id="{{ user }}" role="button"
+                               onclick="get_user_info('{{ user }}', '#{{ loop.index}} {{ user }}')">
                                 #{{ loop.index}} {{ user }}
                             </a>
-                            </span>
                         </h4>
                     </div>
-                    <div id="collapse-{{ loop.index }}" class="panel-collapse collapse in"
+                    <div id="collapse-{{ user }}" class="collapse"
                          role="tabpanel"
-                         aria-labelledby="heading-{{ loop.index }}">
+                         aria-labelledby="heading-{{ user }}">
                         <div class="panel-body">
                             <table id="table_{{ user }}" class="table table-bordered">
                                 <thead class="thead-dark">

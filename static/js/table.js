@@ -1,8 +1,15 @@
+$(document).ready(function(){
+  $(".button").click(function(){
+    $(".collapse").collapse('hide');
+  });
+});
+
+
 function get_user_info(user) {
             $.post('/info', {
                 user_name: user
             }).done(function(response) {
-                var container = document.getElementById("table_{user}".replace('{user}', user)).getElementsByTagName("tbody")[0];
+                var container = document.getElementById('table_{user}'.replace('{user}', user)).getElementsByTagName('tbody')[0];
 
                 var gamesArr = response.games
                 for(var i=0; i < gamesArr.length; i++){
@@ -50,8 +57,11 @@ function get_user_info(user) {
                         container.appendChild(tr);
                     };
 
+               $("#collapse-{user}".replace('{user}', user)).collapse('show');
+
                 };
             }).fail(function() {
-                $(user).text('Error')
+                $("#collapse-{user}".replace('{user}', user)).collapse('toggle');
             });
         }
+

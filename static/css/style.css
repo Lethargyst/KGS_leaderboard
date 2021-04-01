@@ -38,7 +38,7 @@ a:hover,a:focus{
  font-weight: bold;
  color: #fff;
  background: #0C0119;
- transition: all 0.5s ease 0s;
+ transition: all 2s ease 0s;
 }
 
 #accordion .panel-title a:hover{

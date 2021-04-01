@@ -45,9 +45,8 @@ def get_user_info():
                             for i, name in players_2]
                   }
 
-        games_json = jsonify({'games': [game_1, game_2]})
+        games_json = jsonify({'games': [game_1, game_2], 'success': 'OK'})
         return games_json
-    return jsonify({'success': 'OK'})
 
 
 if __name__ == '__main__':

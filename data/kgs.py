@@ -92,9 +92,4 @@ class KGS:
         last_time = last_prop["float"] if last_prop["int"] == 0 else 0
         penult_time = penult_prop["float"] if penult_prop["int"] == 0 else 0
 
-        return (game_time - last_time) + (game_time - penult_time)
-
-
-
-
-
+        return int((game_time - last_time) + (game_time - penult_time))
