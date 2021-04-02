@@ -9,11 +9,11 @@ function get_user_info(user) {
             $.post('/info', {
                 user_name: user
             }).done(function(response) {
-                var container = document.getElementById('table_{user}'.replace('{user}', user)).getElementsByTagName('tbody')[0];
-
                 var gamesArr = response.games
                 for(var i=0; i < gamesArr.length; i++){
                     var game = gamesArr[i]
+                    var container = document.getElementById('table_{user}'.replace('{user}', user)).getElementsByTagName('tbody')[i];
+
                     var tr = document.createElement('tr');
 
                     var gameNum = document.createElement('th');

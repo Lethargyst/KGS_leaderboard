@@ -1,15 +1,18 @@
 from flask import Flask, render_template, request, jsonify
 from data.kgs import KGS
+from data.GameReview import Reviewer
+import os
 
 app = Flask(__name__)
-api = KGS("pamparam", "i7deu8", "ru_RU")
+API = KGS("pamparam", "i7deu8", "ru_RU")
 REQUESTED = []
+REVIEWER = Reviewer()
 
 
 @app.route('/')
 @app.route('/leaderboard')
 def index():
-    return render_template('table.html', users=api.parse_top_100())
+    return render_template('table.html', users=API.parse_top_100())
 
 
 @app.route('/info', methods=['POST'])
@@ -17,10 +20,10 @@ def get_user_info():
     user = request.form['user_name']
     if user not in REQUESTED:
         REQUESTED.append(user)
-        arh_join = KGS.get_typed(api.join_archive_request(user)["messages"], "ARCHIVE_JOIN")
+        arh_join = KGS.get_typed(API.join_archive_request(user)["messages"], "ARCHIVE_JOIN")
 
-        lobby1 = api.get_lobby(arh_join, -1)
-        lobby2 = api.get_lobby(arh_join, -2)
+        lobby1 = API.get_lobby(arh_join, -1)
+        lobby2 = API.get_lobby(arh_join, -2)
 
         players_1 = list(enumerate(KGS.get_players(arh_join, -1)))
         game_1 = {'num': '1',
@@ -45,9 +48,24 @@ def get_user_info():
         return games_json
 
 
-@app.route('/leaderboard/review/<string:user>/<string:game_num>')
+@app.route('/leaderboard/review/<string:user>/<string:game_num>', methods=['GET', 'POST'])
 def game_review(user, game_num):
-    print(api.get_game_moves(user, int(game_num)))
+    REVIEWER.init_match(*API.get_game_params(user, int(game_num)))
+    print('done')
+    return render_template('match_review.html')
+
+
+@app.route('/review_rendering', methods=['POST'])
+def render_board():
+    iteration = int(request.form['iteration'])
+    action = request.form['action']
+    if action == '+':
+        iteration += 1
+    else:
+        iteration -= 1
+    REVIEWER.render_iteration(iteration)
+
+    return jsonify({'src': f'/static/img/board.png', 'iteration': str(iteration)})
 
 
 if __name__ == '__main__':
