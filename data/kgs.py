@@ -44,6 +44,22 @@ class KGS:
         soup = BeautifulSoup(page, "html.parser")
         return [u.contents[0] for u in soup.find_all("a")[:-1]]
 
+    def get_game_moves(self, user, game_num):
+        arh_join = KGS.get_typed(self.join_archive_request(user)["messages"], "ARCHIVE_JOIN")
+
+        moves = self.get_lobby(arh_join, game_num)['sgfEvents']
+        res = []
+        for i in range(2, len(moves), 2):
+            move = moves[i]['props'][0]
+            res.append(move)
+
+        return res
+
+    def get_lobby(self, arh_join, game_num):
+        return KGS.get_typed(
+            self.room_load_game(arh_join["games"][game_num]["timestamp"], 22)["messages"],
+            "GAME_JOIN")
+
     @staticmethod
     def get_typed(json, type, trigger="type"):
         for m in json:

@@ -1,3 +1,5 @@
+from pprint import pprint
+
 from flask import Flask, render_template, request, jsonify
 from data.kgs import KGS
 
@@ -7,7 +9,7 @@ REQUESTED = []
 
 
 @app.route('/')
-@app.route('/table')
+@app.route('/leaderboard')
 def index():
     return render_template('table.html', users=api.parse_top_100())
 
@@ -19,12 +21,8 @@ def get_user_info():
         REQUESTED.append(user)
         arh_join = KGS.get_typed(api.join_archive_request(user)["messages"], "ARCHIVE_JOIN")
 
-        lobby1 = KGS.get_typed(
-            api.room_load_game(arh_join["games"][-1]["timestamp"], 22)["messages"],
-            "GAME_JOIN")
-        lobby2 = KGS.get_typed(
-            api.room_load_game(arh_join["games"][-2]["timestamp"], 22)["messages"],
-            "GAME_JOIN")
+        lobby1 = api.get_lobby(arh_join, -1)
+        lobby2 = api.get_lobby(arh_join, -2)
 
         players_1 = list(enumerate(KGS.get_players(arh_join, -1)))
         game_1 = {'num': '1',
@@ -47,6 +45,11 @@ def get_user_info():
 
         games_json = jsonify({'games': [game_1, game_2], 'success': 'OK'})
         return games_json
+
+
+@app.route('/leaderboard/review/<string:user>/<string:game_num>')
+def game_review(user, game_num):
+    print(api.get_game_moves(user, int(game_num)))
 
 
 if __name__ == '__main__':
