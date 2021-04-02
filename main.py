@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from flask import Flask, render_template, request, jsonify
 from data.kgs import KGS
 
