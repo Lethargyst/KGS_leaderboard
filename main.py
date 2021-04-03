@@ -10,22 +10,28 @@ from data.GameReview import Reviewer
 
 class AuthorizationForm(FlaskForm):
     login = StringField('Логин:', validators=[DataRequired()])
-    password = PasswordField('Пароль: ', validators=[DataRequired()])
+    password = StringField('Пароль: ', validators=[DataRequired()])
     submit = SubmitField('Войти')
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'pythonidory'
-API = KGS("ilushandr", "527fqe", "ru_RU")
 REQUESTED = []
 REVIEWER = Reviewer()
+API = None
 
 
 @app.route('/', methods=['GET', 'POST'])
 def authorization():
+    global API
     form = AuthorizationForm()
     if form.validate_on_submit():
-        return redirect('/leaderboard')
+        try:
+            API = KGS(login=form.login.data, password=form.password.data, loc='ru_RU')
+            print(API)
+            return redirect('/leaderboard')
+        except ValueError:
+            exit()
     return render_template('autho.html', title='Авторизация', form=form)
 
 

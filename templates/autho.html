@@ -19,7 +19,7 @@
         {{ form.password(class="form-control", type="password") }}<br>
         {% for error in form.password.errors %}
     <div class="alert alert-danger" role="alert">
-        {{ error }}
+        {{ form.error }}
     </div>
     {% endfor %}
     </p>
