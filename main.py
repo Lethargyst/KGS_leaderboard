@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 from data.kgs import KGS
 from data.GameReview import Reviewer
-import os
+
 
 app = Flask(__name__)
-API = KGS("pamparam", "i7deu8", "ru_RU")
+API = KGS("ilushandr", "527fqe", "ru_RU")
 REQUESTED = []
 REVIEWER = Reviewer()
 
@@ -20,6 +20,7 @@ def get_user_info():
     user = request.form['user_name']
     if user not in REQUESTED:
         REQUESTED.append(user)
+        API.login("ilushandr", "527fqe", "ru_RU")
         arh_join = KGS.get_typed(API.join_archive_request(user)["messages"], "ARCHIVE_JOIN")
 
         lobby1 = API.get_lobby(arh_join, -1)
@@ -48,10 +49,10 @@ def get_user_info():
         return games_json
 
 
-@app.route('/leaderboard/review/<string:user>/<string:game_num>', methods=['GET', 'POST'])
+@app.route('/leaderboard/review/<string:user>/<string:game_num>')
 def game_review(user, game_num):
+    API.login("ilushandr", "527fqe", "ru_RU")
     REVIEWER.init_match(*API.get_game_params(user, int(game_num)))
-    print('done')
     return render_template('match_review.html')
 
 

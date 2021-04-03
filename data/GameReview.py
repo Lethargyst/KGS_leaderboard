@@ -16,14 +16,17 @@ class Reviewer:
         self.size = size
         self.moves = moves
         self.evaluate_iterations(size, moves)
+        self.render_iteration(0)
 
     def evaluate_iterations(self, size, moves):
         self.iterations = [[[' ' for j in range(size)] for i in range(size)]]
         for move in moves:
-            x, y = move['loc']['x'] - 1, move['loc']['y'] - 1
-            color = move['color']
-            board = self.get_updated_board(self.iterations[-1], x, y, color)
-
+            if move['loc'] != 'PASS':
+                x, y = move['loc']['x'] - 1, move['loc']['y'] - 1
+                color = move['color']
+                board = self.get_updated_board(self.iterations[-1], x, y, color)
+            else:
+                board = deepcopy(self.iterations[-1])
             self.iterations.append(board)
 
     def get_updated_board(self, default_board, x, y, color):
@@ -79,7 +82,8 @@ class Reviewer:
                     idraw.ellipse((padding + node_size * col - stone_size // 2,
                                    padding + node_size * row - stone_size // 2,
                                    padding + node_size * col + stone_size // 2,
-                                   padding + node_size * row + stone_size // 2), fill=COLORS[board[row][col]])
+                                   padding + node_size * row + stone_size // 2),
+                                  fill=COLORS[board[row][col]])
 
         img.save('static/img/board.png')
 

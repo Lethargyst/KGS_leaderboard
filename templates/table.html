@@ -32,8 +32,10 @@
                                 </tr>
                                 </thead>
 
-                                <tbody id="{{ user }}GameRow1"></tbody>
-                                <tbody id="{{ user }}GameRow2"></tbody>
+                                <tbody id="{{ user }}GameRow1"
+                                       onclick="window.location.href = '/leaderboard/review/{{ user }}/-1'"></tbody>
+                                <tbody id="{{ user }}GameRow2"
+                                       onclick="window.location.href = '/leaderboard/review/{{ user }}/-2'"></tbody>
 
                             </table>
 
