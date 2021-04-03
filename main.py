@@ -1,17 +1,36 @@
 from flask import Flask, render_template, request, jsonify
+from flask_wtf import FlaskForm
+from werkzeug.utils import redirect
+from wtforms import StringField, SubmitField, PasswordField
+from wtforms.validators import DataRequired
+
 from data.kgs import KGS
 from data.GameReview import Reviewer
 
 
+class AuthorizationForm(FlaskForm):
+    login = StringField('Логин:', validators=[DataRequired()])
+    password = PasswordField('Пароль: ', validators=[DataRequired()])
+    submit = SubmitField('Доступ')
+
+
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'pythonidory'
 API = KGS("ilushandr", "527fqe", "ru_RU")
 REQUESTED = []
 REVIEWER = Reviewer()
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
+def authorization():
+    form = AuthorizationForm()
+    if form.validate_on_submit():
+        return redirect('/leaderboard')
+    return render_template('autho.html', title='Авторизация', form=form)
+
+
 @app.route('/leaderboard')
-def index():
+def leaderboard():
     return render_template('table.html', users=API.parse_top_100())
 
 
