@@ -35,7 +35,6 @@ function render_next_one() {
         }
 
 window.onload = function set_size() {
-    console.log('dfgdfgdf')
     var sc_width = document.documentElement.clientWidth
     var sc_height = document.documentElement.clientHeight
     var board_size = Math.min(sc_width, sc_height) - 100

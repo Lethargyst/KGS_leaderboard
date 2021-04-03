@@ -3,7 +3,6 @@ from flask_wtf import FlaskForm
 from werkzeug.utils import redirect
 from wtforms import StringField, SubmitField, PasswordField
 from wtforms.validators import DataRequired
-
 from data.kgs import KGS
 from data.GameReview import Reviewer
 
@@ -11,21 +10,26 @@ from data.GameReview import Reviewer
 class AuthorizationForm(FlaskForm):
     login = StringField('Логин:', validators=[DataRequired()])
     password = PasswordField('Пароль: ', validators=[DataRequired()])
-    submit = SubmitField('Доступ')
+    submit = SubmitField('Войти')
 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'pythonidory'
-API = KGS("ilushandr", "527fqe", "ru_RU")
 REQUESTED = []
 REVIEWER = Reviewer()
 
 
 @app.route('/', methods=['GET', 'POST'])
 def authorization():
+    global API, LOGIN, PASSWORD
     form = AuthorizationForm()
     if form.validate_on_submit():
-        return redirect('/leaderboard')
+        try:
+            API = KGS(login=form.login.data, password=form.password.data, loc='ru_RU')
+            LOGIN, PASSWORD = form.login.data, form.password.data
+            return redirect('/leaderboard')
+        except ValueError:
+            pass
     return render_template('autho.html', title='Авторизация', form=form)
 
 
@@ -38,7 +42,7 @@ def leaderboard():
 def get_user_info():
     user = request.form['user_name']
     if user not in REQUESTED:
-        API.login("ilushandr", "527fqe", "ru_RU")
+        API.login(LOGIN, PASSWORD, "ru_RU")
         arh_join = KGS.get_typed(API.join_archive_request(user)["messages"], "ARCHIVE_JOIN")
 
         lobby1 = API.get_lobby(arh_join, -1)
@@ -70,7 +74,7 @@ def get_user_info():
 
 @app.route('/leaderboard/review/<string:user>/<string:game_num>')
 def game_review(user, game_num):
-    API.login("ilushandr", "527fqe", "ru_RU")
+    API.login(LOGIN, PASSWORD, "ru_RU")
     REVIEWER.init_match(*API.get_game_params(user, int(game_num)))
     return render_template('match_review.html')
 
