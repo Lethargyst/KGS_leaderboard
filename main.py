@@ -1,17 +1,36 @@
 from flask import Flask, render_template, request, jsonify
+from flask_wtf import FlaskForm
+from werkzeug.utils import redirect
+from wtforms import StringField, SubmitField, PasswordField
+from wtforms.validators import DataRequired
+
 from data.kgs import KGS
 from data.GameReview import Reviewer
 
 
+class AuthorizationForm(FlaskForm):
+    login = StringField('Логин:', validators=[DataRequired()])
+    password = PasswordField('Пароль: ', validators=[DataRequired()])
+    submit = SubmitField('Войти')
+
+
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'pythonidory'
 API = KGS("ilushandr", "527fqe", "ru_RU")
 REQUESTED = []
 REVIEWER = Reviewer()
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
+def authorization():
+    form = AuthorizationForm()
+    if form.validate_on_submit():
+        return redirect('/leaderboard')
+    return render_template('autho.html', title='Авторизация', form=form)
+
+
 @app.route('/leaderboard')
-def index():
+def leaderboard():
     return render_template('table.html', users=API.parse_top_100())
 
 
@@ -19,7 +38,6 @@ def index():
 def get_user_info():
     user = request.form['user_name']
     if user not in REQUESTED:
-        REQUESTED.append(user)
         API.login("ilushandr", "527fqe", "ru_RU")
         arh_join = KGS.get_typed(API.join_archive_request(user)["messages"], "ARCHIVE_JOIN")
 
@@ -46,6 +64,7 @@ def get_user_info():
                   }
 
         games_json = jsonify({'games': [game_1, game_2], 'success': 'OK'})
+        REQUESTED.append(user)
         return games_json
 
 

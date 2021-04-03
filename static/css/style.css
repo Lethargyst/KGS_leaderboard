@@ -1,11 +1,8 @@
+
+
 tbody:hover {
         background: #B4AEAE;
         color: #323030;
-       }
-
-.firstly {
-  font-size: 1em;
-  font-weight: bold;
 }
 
 a {
@@ -36,14 +33,12 @@ a:hover,a:focus{
  padding: 15px;
  font-size: 16px;
  font-weight: bold;
- color: #fff;
- background: #0C0119;
+ color: black;
+ background: #fff;
  transition: all 2s ease 0s;
+
 }
 
 #accordion .panel-title a:hover{
- background: rgba(12, 1, 25, 0.8);
+ background: #9a9a9a;
 }
-
-
-

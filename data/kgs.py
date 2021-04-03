@@ -17,7 +17,7 @@ class KGS:
                 "password": password,
                 "locale": loc}
         self.cookie = requests.post(API_URL, json=data).cookies
-        requests.get(API_URL, cookies=self.cookie).json()
+        print(requests.get(API_URL, cookies=self.cookie).json())
 
     def req(self, data):
         requests.post(API_URL, json=data, cookies=self.cookie)
@@ -102,9 +102,11 @@ class KGS:
         penult = KGS.get_typed(sgf[::-1], "PROP_GROUP_ADDED")
 
         last_prop = KGS.get_typed(last["props"], "TIMELEFT", trigger="name")
+
         penult_prop = KGS.get_typed(penult["props"], "TIMELEFT", trigger="name")
 
         last_time = last_prop["float"] if last_prop["int"] == 0 else 0
+
         penult_time = penult_prop["float"] if penult_prop["int"] == 0 else 0
 
         return int((game_time - last_time) + (game_time - penult_time))
