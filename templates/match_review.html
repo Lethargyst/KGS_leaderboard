@@ -1,8 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<img id="board" src="/static/img/board.png" width="100%" height="100%">
-<button onclick="render_last_one()">Туда</button>
-<h1 id="iteration">0</h1>
-<button onclick="render_next_one()">Сюда</button>
+<div class="container" style="background-color: #1c1c1c;">
+    <div class="row justify-content-md-center">
+        <div class="col">
+            <img class="rounded mx-auto d-block" id="board" src="/static/img/board.png"
+                 onload="set_size()">
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="text-left" style="padding-top: 10px">
+            <button type="button" class="btn btn-warning" onclick="render_last_one()"
+                    style="background-color: #a78a48">Назад
+            </button>
+        </div>
+        <div class="text-center" style="padding-left: 100px; padding-right: 100px;">
+            <h1 id="iteration" style="color: white;">0</h1>
+        </div>
+        <div class="text-right" style="padding-top: 10px">
+            <button type="button" class="btn btn-warning" onclick="render_next_one()"
+                    style="background-color: #a78a48">Вперёд
+            </button>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
