@@ -11,6 +11,7 @@ class Reviewer:
         self.size = None
         self.moves = []
         self.iterations = []
+        self.iterations_num = None
 
     def init_match(self, size, moves):
         self.size = size
@@ -29,6 +30,7 @@ class Reviewer:
             else:
                 board = deepcopy(self.iterations[-1])
             self.iterations.append(board)
+        self.iterations_num = len(self.iterations)
 
     def get_updated_board(self, default_board, x, y, color):
         # Возвращает список новой итерации
@@ -91,4 +93,3 @@ class Reviewer:
                                   fill=COLORS[board[row][col]])
 
         img.save('static/img/board.png')
-

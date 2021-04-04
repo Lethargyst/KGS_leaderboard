@@ -76,20 +76,21 @@ def get_user_info():
 def game_review(user, game_num):
     API.login(LOGIN, PASSWORD, "ru_RU")
     REVIEWER.init_match(*API.get_game_params(user, int(game_num)))
-    return render_template('match_review.html')
+    return render_template('match_review.html', iterations_num=REVIEWER.iterations_num - 1)
 
 
 @app.route('/review_rendering', methods=['POST'])
 def render_board():
-    iteration = int(request.form['iteration'])
+    iteration, iterations_num = list(map(int, request.form['iteration'].split('/')))
     action = request.form['action']
     if action == '+':
-        iteration += 1
+        iteration = (iteration + 1) % (iterations_num + 1)
     else:
-        iteration -= 1
+        iteration = (iteration - 1) % (iterations_num + 1)
     REVIEWER.render_iteration(iteration)
 
-    return jsonify({'src': f'/static/img/board.png', 'iteration': str(iteration)})
+    iteration_message = f'{iteration}/{iterations_num}'
+    return jsonify({'src': f'/static/img/board.png', 'iteration': iteration_message})
 
 
 if __name__ == '__main__':
