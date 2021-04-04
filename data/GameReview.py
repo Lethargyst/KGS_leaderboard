@@ -19,6 +19,7 @@ class Reviewer:
         self.render_iteration(0)
 
     def evaluate_iterations(self, size, moves):
+        # Возвращает расположение камней на каждой итерации игры
         self.iterations = [[[' ' for j in range(size)] for i in range(size)]]
         for move in moves:
             if move['loc'] != 'PASS':
@@ -30,6 +31,7 @@ class Reviewer:
             self.iterations.append(board)
 
     def get_updated_board(self, default_board, x, y, color):
+        # Возвращает список новой итерации
         board_copy = deepcopy(default_board)
         board_copy[y][x] = STONES[color]
         for row in range(self.size):
@@ -39,12 +41,14 @@ class Reviewer:
         return board_copy
 
     def kill_surrounded_stones(self, row, col, board):
+        # Уничтожает камни, окруженные камнями противника
         checked = set()
         if self.is_surrounded(row, col, checked, board):
             for i, j in checked:
                 board[i][j] = ' '
 
     def is_surrounded(self, row, col, checked, board):
+        # Рекурсивная функция, проверяющая, окружен ли камень
         checked.add((row, col))
         if board[row][col] == ' ':
             return False
@@ -66,6 +70,7 @@ class Reviewer:
         return not (0 <= row < self.size and 0 <= col < self.size)
 
     def render_iteration(self, iteration):
+        # Рисует игровую доску на данной итерации
         board = self.iterations[iteration]
         img = Image.new('RGBA', (1000, 1000), '#dfbd6d')
         idraw = ImageDraw.Draw(img)

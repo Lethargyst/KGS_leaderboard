@@ -30,7 +30,7 @@ function render_next_one() {
                 document.getElementById('board').style.height = String(board_size) + 'px'
                 document.getElementById('iteration').innerHTML = response.iteration
             }).fail(function() {
-                $('#iteration').text("{{ _('Error: Could not contact server.') }}");
+                $('#iteration').text("Error: Could not contact server.");
             });
         }
 
