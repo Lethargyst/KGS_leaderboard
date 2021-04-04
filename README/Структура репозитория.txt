@@ -1,0 +1,19 @@
+data/, static/, templates/, main.py
+
+./data:
+__pycache__/, GameReview.py, kgs.py
+
+./static:
+css/, img/, js/
+
+./static/css:
+style.css
+
+./static/img:
+board.png
+
+./static/js:
+review.js, table.js
+
+./templates:
+autho.html, base.html, match_review.html, table.html
